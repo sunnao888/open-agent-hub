@@ -1,0 +1,14 @@
+${AnsiColor.BRIGHT_BLUE}
+ ________  ________  _______   ________   _________
+|\   __  \|\   ____\|\  ___ \ |\   ___  \|\___   ___\
+\ \  \|\  \ \  \___|\ \   __/|\ \  \\ \  \|___ \  \_|
+ \ \   __  \ \  \  __\ \  \_|/_\ \  \\ \  \   \ \  \
+  \ \  \ \  \ \  \|\  \ \  \_|\ \ \  \\ \  \   \ \  \
+   \ \__\ \__\ \_______\ \_______\ \__\\ \__\   \ \__\
+    \|__|\|__|\|_______|\|_______|\|__| \|__|    \|__|
+
+${AnsiColor.BRIGHT_GREEN}
+Project Version: ${project.version}
+Spring Boot Version: ${spring-boot.version}${spring-boot.formatted-version}
+版权所属： https://github.com/sunnao888
+${AnsiColor.BRIGHT_BLUE}
