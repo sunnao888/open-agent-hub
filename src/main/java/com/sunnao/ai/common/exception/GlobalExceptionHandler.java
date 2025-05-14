@@ -232,7 +232,7 @@ public class GlobalExceptionHandler {
      * 当未登录的用户访问受保护资源时,会抛出 NotLoginException 异常
      */
     @ExceptionHandler(NotLoginException.class)
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ResponseStatus(HttpStatus.UNAUTHORIZED)
     public <T> Result<T> handleBizException(NotLoginException e) {
         log.error("not login exception", e);
         return Result.failed(ResultCode.USER_LOGIN_EXCEPTION, e.getMessage());

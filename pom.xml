@@ -24,7 +24,7 @@
         <druid.version>1.2.24</druid.version>
         <org.mapstruct.version>1.6.3</org.mapstruct.version>
         <hutool.version>5.8.26</hutool.version>
-        <knife4j.version>4.4.0</knife4j.version>
+        <knife4j.version>4.5.0</knife4j.version>
         <sa-token.version>1.42.0</sa-token.version>
     </properties>
 

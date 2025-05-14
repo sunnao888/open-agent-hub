@@ -74,17 +74,13 @@ springdoc:
     - group: '系统管理'
       paths-to-match: "/**"
       packages-to-scan:
-        - com.youlai.boot.system.controller
-        - com.youlai.boot.shared.auth.controller
-        - com.youlai.boot.shared.file.controller
-        - com.youlai.boot.shared.codegen.controller
+        - com.sunnao.ai.modules.system.controller
   default-flat-param-object: true
 
 # knife4j 接口文档配置
+# fixme!!! knife4j和 spring boot 3.4.5有兼容性问题,项目中使用了ControllerAdvice注解会导致接口文档报错. 详见https://github.com/xiaoymin/knife4j/issues/884
 knife4j:
   # 是否开启 Knife4j 增强功能
-  enable: true  # 设置为 true 表示开启增强功能
-  # 生产环境配置
-  production: false  # 设置为 true 表示在生产环境中不显示文档，为 false 表示显示文档（通常在开发环境中使用）
+  enable: false  # 设置为 true 表示开启增强功能
   setting:
     language: zh_cn
