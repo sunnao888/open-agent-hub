@@ -1,5 +1,6 @@
 package com.sunnao.ai.common.exception;
 
+import cn.dev33.satoken.exception.NotLoginException;
 import cn.hutool.core.util.StrUtil;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.sunnao.ai.common.result.Result;
@@ -223,6 +224,18 @@ public class GlobalExceptionHandler {
             return Result.failed(e.getResultCode(), e.getMessage());
         }
         return Result.failed(e.getMessage());
+    }
+
+    /**
+     * 处理用户未登录异常
+     * <p>
+     * 当未登录的用户访问受保护资源时,会抛出 NotLoginException 异常
+     */
+    @ExceptionHandler(NotLoginException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public <T> Result<T> handleBizException(NotLoginException e) {
+        log.error("not login exception", e);
+        return Result.failed(ResultCode.USER_LOGIN_EXCEPTION, e.getMessage());
     }
 
     /**
