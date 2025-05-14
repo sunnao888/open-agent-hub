@@ -1,4 +1,4 @@
-package com.sunnao.ai.result;
+package com.sunnao.ai.common.result;
 
 import cn.hutool.core.util.StrUtil;
 import lombok.Data;

@@ -1,4 +1,4 @@
-package com.sunnao.ai.base;
+package com.sunnao.ai.common.base;
 
 import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.IdType;

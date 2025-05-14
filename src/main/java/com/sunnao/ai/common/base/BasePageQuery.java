@@ -1,4 +1,4 @@
-package com.sunnao.ai.base;
+package com.sunnao.ai.common.base;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;

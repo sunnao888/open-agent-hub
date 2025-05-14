@@ -1,4 +1,4 @@
-package com.sunnao.ai.result;
+package com.sunnao.ai.common.result;
 
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;

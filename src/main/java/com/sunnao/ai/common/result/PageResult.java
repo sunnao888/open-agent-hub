@@ -1,4 +1,4 @@
-package com.sunnao.ai.result;
+package com.sunnao.ai.common.result;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import lombok.Data;

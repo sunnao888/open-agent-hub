@@ -1,4 +1,4 @@
-# 创建一个名为 "youlai-boot" 的桥接网络，在同一个网络中的容器可以通过容器名互相访问
+# 创建一个名为 "open-agent-hub" 的桥接网络，在同一个网络中的容器可以通过容器名互相访问
 networks:
   open-agent-hub:
     driver: bridge
@@ -37,7 +37,7 @@ services:
 
   minio:
     image: minio/minio:latest
-    container_name: minio
+    container_name: open-agent-hub-minio
     restart: unless-stopped
     command: server /data --console-address ":9001"
     ports:

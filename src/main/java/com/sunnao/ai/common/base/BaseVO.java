@@ -1,4 +1,4 @@
-package com.sunnao.ai.base;
+package com.sunnao.ai.common.base;
 
 import lombok.Data;
 import lombok.ToString;

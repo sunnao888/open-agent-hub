@@ -1,6 +1,6 @@
-package com.sunnao.ai.exception;
+package com.sunnao.ai.common.exception;
 
-import com.sunnao.ai.result.IResultCode;
+import com.sunnao.ai.common.result.IResultCode;
 import lombok.Getter;
 import org.slf4j.helpers.MessageFormatter;
 

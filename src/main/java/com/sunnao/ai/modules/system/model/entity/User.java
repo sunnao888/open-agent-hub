@@ -1,7 +1,7 @@
 package com.sunnao.ai.modules.system.model.entity;
 
 import com.baomidou.mybatisplus.annotation.TableName;
-import com.sunnao.ai.base.BaseEntity;
+import com.sunnao.ai.common.base.BaseEntity;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -80,5 +80,10 @@ public class User extends BaseEntity {
      * 微信 OpenID
      */
     private String openid;
+
+    public User(String username, String password) {
+        this.username = username;
+        this.password = password;
+    }
 
 }

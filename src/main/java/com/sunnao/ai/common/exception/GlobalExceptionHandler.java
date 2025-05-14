@@ -1,9 +1,9 @@
-package com.sunnao.ai.exception;
+package com.sunnao.ai.common.exception;
 
 import cn.hutool.core.util.StrUtil;
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.sunnao.ai.result.Result;
-import com.sunnao.ai.result.ResultCode;
+import com.sunnao.ai.common.result.Result;
+import com.sunnao.ai.common.result.ResultCode;
 import jakarta.servlet.ServletException;
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.ConstraintViolationException;

@@ -1,8 +1,8 @@
-package com.sunnao.ai.util;
+package com.sunnao.ai.common.util;
 
 import cn.hutool.json.JSONUtil;
-import com.sunnao.ai.result.Result;
-import com.sunnao.ai.result.ResultCode;
+import com.sunnao.ai.common.result.Result;
+import com.sunnao.ai.common.result.ResultCode;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
