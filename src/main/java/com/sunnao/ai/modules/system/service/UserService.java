@@ -2,6 +2,7 @@ package com.sunnao.ai.modules.system.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.sunnao.ai.modules.system.model.entity.User;
+import com.sunnao.ai.modules.system.model.vo.CurrentUserVO;
 
 /**
  * 用户业务接口
@@ -18,6 +19,13 @@ public interface UserService extends IService<User> {
      * @return 用户对象
      */
     User getEntityByUsername(String username);
+
+    /**
+     * 获取当前登录用户信息
+     *
+     * @return {@link CurrentUserVO} 当前登录用户信息
+     */
+    CurrentUserVO getCurrentUserInfo();
 
     /**
      * 保存用户
@@ -44,4 +52,5 @@ public interface UserService extends IService<User> {
      * @return true: 存在，false: 不存在
      */
     boolean checkUsernameExists(String username);
+
 }
