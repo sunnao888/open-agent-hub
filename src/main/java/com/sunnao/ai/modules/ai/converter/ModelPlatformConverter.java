@@ -3,13 +3,14 @@ package com.sunnao.ai.modules.ai.converter;
 import com.sunnao.ai.modules.ai.model.entity.SupportModelPlatform;
 import com.sunnao.ai.modules.ai.model.vo.ModelPlatformVO;
 import org.mapstruct.Mapper;
+import org.mapstruct.MappingConstants;
 
 import java.util.List;
 
 /**
  * 模型平台对象转换器
  */
-@Mapper
+@Mapper(componentModel = MappingConstants.ComponentModel.SPRING)
 public interface ModelPlatformConverter {
 
     /**
