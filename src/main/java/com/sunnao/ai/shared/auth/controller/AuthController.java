@@ -44,10 +44,19 @@ public class AuthController {
      * 账号密码注册
      *
      * @param registerDTO 注册请求参数
-     *
      */
     @PostMapping("/register")
     public Result<Boolean> register(@RequestBody @Validated RegisterDTO registerDTO) {
         return Result.success(authService.register(registerDTO));
+    }
+
+    /**
+     * 账号密码注销
+     *
+     * @return 注销结果
+     */
+    @PostMapping("/logout")
+    public Result<Boolean> logout() {
+        return Result.success(authService.logout());
     }
 }

@@ -71,4 +71,10 @@ public class AuthServiceImpl implements AuthService {
         // 2. 注册用户
         return userService.register(username, password);
     }
+
+    @Override
+    public Boolean logout() {
+        StpUtil.logout();
+        return Boolean.TRUE;
+    }
 }

@@ -27,4 +27,11 @@ public interface AuthService {
      * @return 是否注册成功
      */
     Boolean register(RegisterDTO registerDTO);
+
+    /**
+     * 账号密码注销
+     *
+     * @return 是否注销成功
+     */
+    Boolean logout();
 }

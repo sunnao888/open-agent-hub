@@ -30,7 +30,7 @@ public class AuthenticationToken {
     private Long expiresIn;
 
     public AuthenticationToken(String accessToken, Long expiresIn) {
-        this.accessToken = tokenType;
+        this.accessToken = accessToken;
         this.expiresIn = expiresIn;
     }
 }
