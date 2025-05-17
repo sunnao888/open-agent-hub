@@ -26,7 +26,7 @@ public class PageResult<T> implements Serializable {
         result.setCode(ResultCode.SUCCESS.getCode());
 
         Data<T> data = new Data<>();
-        data.setList(page.getRecords());
+        data.setItems(page.getRecords());
         data.setTotal(page.getTotal());
 
         result.setData(data);
@@ -37,7 +37,7 @@ public class PageResult<T> implements Serializable {
     @lombok.Data
     public static class Data<T> {
 
-        private List<T> list;
+        private List<T> items;
 
         private long total;
 

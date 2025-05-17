@@ -1,6 +1,7 @@
 package com.sunnao.ai.common.exception;
 
 import cn.dev33.satoken.exception.NotLoginException;
+import cn.dev33.satoken.exception.NotRoleException;
 import cn.hutool.core.util.StrUtil;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.sunnao.ai.common.result.Result;
@@ -208,7 +209,7 @@ public class GlobalExceptionHandler {
     @ResponseStatus(HttpStatus.FORBIDDEN)
     public <T> Result<T> processSQLSyntaxErrorException(SQLSyntaxErrorException e) {
         log.error(e.getMessage(), e);
-        return Result.failed(e.getMessage());
+        return Result.failed(ResultCode.DATABASE_SERVICE_ERROR);
     }
 
     /**
@@ -239,6 +240,18 @@ public class GlobalExceptionHandler {
     }
 
     /**
+     * 处理角色权限校验异常
+     * <p>
+     * 当用户访问需要特定角色权限的接口但没有该角色时,会抛出 NotRoleException 异常
+     */
+    @ExceptionHandler(NotRoleException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public <T> Result<T> handleBizException(NotRoleException e) {
+        log.error("not role exception", e);
+        return Result.failed(ResultCode.ACCESS_PERMISSION_EXCEPTION, e.getMessage());
+    }
+
+    /**
      * 处理所有未捕获的异常
      * <p>
      * 当发生未捕获的异常时，会抛出 Exception 异常。
@@ -247,7 +260,7 @@ public class GlobalExceptionHandler {
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public <T> Result<T> handleException(Exception e) {
         log.error("unknown exception", e);
-        return Result.failed(e.getLocalizedMessage());
+        return Result.failed(ResultCode.SYSTEM_ERROR);
     }
 
     /**

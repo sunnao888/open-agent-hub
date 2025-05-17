@@ -1,9 +1,12 @@
 package com.sunnao.ai.modules.system.model.entity;
 
+import cn.hutool.core.collection.CollUtil;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.sunnao.ai.common.base.BaseEntity;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+
+import java.util.List;
 
 /**
  * 用户对象
@@ -84,6 +87,10 @@ public class User extends BaseEntity {
     public User(String username, String password) {
         this.username = username;
         this.password = password;
+    }
+
+    public List<String> getRoles() {
+        return CollUtil.newArrayList(role);
     }
 
 }

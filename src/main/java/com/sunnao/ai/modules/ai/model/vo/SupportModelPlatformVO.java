@@ -6,15 +6,10 @@ import java.io.Serial;
 import java.io.Serializable;
 
 @Data
-public class ModelPlatformVO implements Serializable {
+public class SupportModelPlatformVO implements Serializable {
 
     @Serial
     private static final long serialVersionUID = 1L;
-
-    /**
-     * 平台ID
-     */
-    private String id;
 
     /**
      * 平台名称
@@ -22,22 +17,22 @@ public class ModelPlatformVO implements Serializable {
     private String name;
 
     /**
-     * 平台图标
+     * 图标
      */
     private String icon;
 
     /**
-     * 平台地址
-     */
-    private String baseUrl;
-
-    /**
-     * 跳转地址
+     * 官网跳转地址
      */
     private String redirect;
 
     /**
-     * 状态
+     * api地址
+     */
+    private String baseUrl;
+
+    /**
+     * 状态（0禁用 1启用）
      */
     private Integer status;
 
@@ -45,4 +40,5 @@ public class ModelPlatformVO implements Serializable {
      * 介绍
      */
     private String description;
+
 }

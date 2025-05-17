@@ -37,11 +37,6 @@ public class SupportModelPlatform extends BaseEntity {
     private String baseUrl;
 
     /**
-     * apiKey
-     */
-    private String apiKey;
-
-    /**
      * 状态（0禁用 1弃用）
      */
     private Integer status;
@@ -60,4 +55,10 @@ public class SupportModelPlatform extends BaseEntity {
      * 逻辑删除标识(0-未删除 1-已删除)
      */
     private Integer isDeleted;
+
+    /**
+     * 介绍
+     */
+    private String description;
+    ;
 }
