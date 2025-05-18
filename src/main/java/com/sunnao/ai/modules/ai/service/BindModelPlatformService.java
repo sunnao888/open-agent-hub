@@ -22,4 +22,13 @@ public interface BindModelPlatformService extends IService<BindModelPlatform> {
      * @return 模型平台ID列表
      */
     List<Long> getActiveSupportIdListByUserId(Long loginId);
+
+    /**
+     * Retrieves a user's binding information for a specific support platform.
+     *
+     * @param loginId the ID of the logged-in user
+     * @param id      the ID of the support platform
+     * @return the binding information between the user and the specified platform wrapped in a {@link BindModelPlatform} object
+     */
+    BindModelPlatform getEntityListByUserIdAndSupportId(long loginId, Long id);
 }

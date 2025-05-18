@@ -37,6 +37,11 @@ public class ModelPlatformVO implements Serializable {
     private String redirect;
 
     /**
+     * apiKey
+     */
+    private String apiKey;
+
+    /**
      * 状态
      */
     private Integer status;
@@ -45,4 +50,5 @@ public class ModelPlatformVO implements Serializable {
      * 介绍
      */
     private String description;
+
 }

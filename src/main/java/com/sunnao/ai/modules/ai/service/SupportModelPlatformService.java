@@ -16,6 +16,11 @@ public interface SupportModelPlatformService extends IService<SupportModelPlatfo
      */
     IPage<SupportModelPlatformVO> page(SupportModelPlatformPageQuery query);
 
+    /**
+     * 根据id获取基本信息
+     */
+    SupportModelPlatformVO getInfo(Long id);
+
 
     /**
      * 获取系统支持的模型平台列表(状态为启用)
@@ -28,4 +33,14 @@ public interface SupportModelPlatformService extends IService<SupportModelPlatfo
      * 新增系统支持的模型平台
      */
     boolean save(SupportModelPlatformForm form);
+
+    /**
+     * 修改系统支持的模型平台
+     */
+    boolean update(SupportModelPlatformForm form);
+
+    /**
+     * 删除系统支持的模型平台
+     */
+    boolean delete(Long id);
 }

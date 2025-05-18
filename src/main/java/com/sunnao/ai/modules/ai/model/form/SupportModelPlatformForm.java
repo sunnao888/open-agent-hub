@@ -51,4 +51,10 @@ public class SupportModelPlatformForm implements Serializable {
     @NotBlank(message = "介绍不能为空")
     private String description;
 
+    /**
+     * 平台标识符
+     */
+    @NotBlank(message = "平台标识不能为空")
+    private String code;
+
 }

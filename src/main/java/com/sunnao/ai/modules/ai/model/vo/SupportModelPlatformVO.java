@@ -12,6 +12,11 @@ public class SupportModelPlatformVO implements Serializable {
     private static final long serialVersionUID = 1L;
 
     /**
+     * 主键
+     */
+    private Long id;
+
+    /**
      * 平台名称
      */
     private String name;
@@ -40,5 +45,10 @@ public class SupportModelPlatformVO implements Serializable {
      * 介绍
      */
     private String description;
+
+    /**
+     * 平台标识符
+     */
+    private String code;
 
 }

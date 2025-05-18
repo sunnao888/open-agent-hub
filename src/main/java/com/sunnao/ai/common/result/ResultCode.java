@@ -191,6 +191,13 @@ public enum ResultCode implements IResultCode, Serializable {
     USER_GPS_POSITIONING_EXCEPTION("A1005", "用户 GPS 定位异常"),
 
     /**
+     * 二级宏观错误码
+     */
+    BASE_URL_NOT_MATCHED("A1100", "URL格式不匹配,请检查url是否正确"),
+    MODEL_LIST_EMPTY("A1101", "模型列表为空"),
+    SUPPORT_PLATFORM_NOT_EXIST("A1102", "不支持的模型平台"),
+
+    /**
      * 一级宏观错误码
      */
     SYSTEM_ERROR("B0001", "系统执行出错"),

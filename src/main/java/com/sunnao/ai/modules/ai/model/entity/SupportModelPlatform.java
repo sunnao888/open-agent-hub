@@ -60,5 +60,9 @@ public class SupportModelPlatform extends BaseEntity {
      * 介绍
      */
     private String description;
-    ;
+
+    /**
+     * 模型平台标识
+     */
+    private String code;
 }

@@ -29,6 +29,14 @@ public class BindModelPlatformServiceImpl extends ServiceImpl<BindModelPlatformM
                 .eq(BindModelPlatform::getStatus, StatusEnum.ENABLE.getCode());
         return listObjs(queryWrapper, o -> Long.valueOf(o.toString()));
     }
+
+    @Override
+    public BindModelPlatform getEntityListByUserIdAndSupportId(long loginId, Long id) {
+        LambdaQueryWrapper<BindModelPlatform> queryWrapper = new LambdaQueryWrapper<>();
+        queryWrapper.eq(BindModelPlatform::getUserId, loginId)
+                .eq(BindModelPlatform::getSupportId, id);
+        return getOne(queryWrapper);
+    }
 }
 
 

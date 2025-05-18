@@ -34,6 +34,12 @@ public class SupportModelPlatformServiceImpl extends ServiceImpl<SupportModelPla
     }
 
     @Override
+    public SupportModelPlatformVO getInfo(Long id) {
+        SupportModelPlatform entity = getById(id);
+        return supportModelPlatformConverter.toVO(entity);
+    }
+
+    @Override
     public List<SupportModelPlatform> getActiveEntityList() {
         return lambdaQuery()
                 .eq(SupportModelPlatform::getStatus, StatusEnum.ENABLE.getCode())
@@ -48,6 +54,19 @@ public class SupportModelPlatformServiceImpl extends ServiceImpl<SupportModelPla
         SupportModelPlatform entity = supportModelPlatformConverter.toEntity(form);
         entity.setCreateBy(StpUtil.getLoginIdAsLong());
         return save(entity);
+    }
+
+    @Override
+    public boolean update(SupportModelPlatformForm form) {
+        SupportModelPlatform entity = supportModelPlatformConverter.toEntity(form);
+        entity.setUpdateBy(StpUtil.getLoginIdAsLong());
+        return updateById(entity);
+    }
+
+    @Override
+    public boolean delete(Long id) {
+        // TODO 这里需要判断是否有绑定关系,如果有,则不能删除
+        return removeById(id);
     }
 }
 

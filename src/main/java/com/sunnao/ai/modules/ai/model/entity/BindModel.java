@@ -14,7 +14,7 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode(callSuper = false)
 @TableName(value = "agent_bind_model_list")
 @Data
-public class BindModelList extends BaseEntity {
+public class BindModel extends BaseEntity {
 
     /**
      * 用户绑定的大模型平台id

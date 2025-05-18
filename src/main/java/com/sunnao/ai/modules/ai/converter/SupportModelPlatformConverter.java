@@ -13,4 +13,6 @@ public interface SupportModelPlatformConverter {
     Page<SupportModelPlatformVO> toPageVO(Page<SupportModelPlatform> page);
 
     SupportModelPlatform toEntity(SupportModelPlatformForm form);
+
+    SupportModelPlatformVO toVO(SupportModelPlatform entity);
 }
