@@ -24,7 +24,7 @@ public class BindModel extends BaseEntity {
     /**
      * 模型组
      */
-    private String group;
+    private String modelGroup;
 
     /**
      * 模型名称

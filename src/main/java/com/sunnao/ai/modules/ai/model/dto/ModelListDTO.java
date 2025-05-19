@@ -6,8 +6,8 @@ import lombok.Data;
 @Data
 public class ModelListDTO {
 
-    @NotBlank(message = "baseUrl不能为空")
-    private String baseUrl;
+    @NotBlank(message = "supportId不能为空")
+    private Long supportId;
 
     @NotBlank(message = "apiKey不能为空")
     private String apiKey;

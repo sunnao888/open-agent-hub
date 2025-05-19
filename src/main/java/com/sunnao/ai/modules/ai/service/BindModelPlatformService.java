@@ -30,5 +30,10 @@ public interface BindModelPlatformService extends IService<BindModelPlatform> {
      * @param id      the ID of the support platform
      * @return the binding information between the user and the specified platform wrapped in a {@link BindModelPlatform} object
      */
-    BindModelPlatform getEntityListByUserIdAndSupportId(long loginId, Long id);
+    BindModelPlatform getEntityByUserIdAndSupportId(long loginId, Long id);
+
+    /**
+     * 保存或修改apiKey
+     */
+    boolean saveOrUpdateApiKey(Long userId, Long supportId, String apiKey);
 }

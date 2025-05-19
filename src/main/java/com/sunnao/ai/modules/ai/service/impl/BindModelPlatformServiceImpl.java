@@ -31,11 +31,30 @@ public class BindModelPlatformServiceImpl extends ServiceImpl<BindModelPlatformM
     }
 
     @Override
-    public BindModelPlatform getEntityListByUserIdAndSupportId(long loginId, Long id) {
+    public BindModelPlatform getEntityByUserIdAndSupportId(long loginId, Long id) {
         LambdaQueryWrapper<BindModelPlatform> queryWrapper = new LambdaQueryWrapper<>();
         queryWrapper.eq(BindModelPlatform::getUserId, loginId)
                 .eq(BindModelPlatform::getSupportId, id);
         return getOne(queryWrapper);
+    }
+
+    @Override
+    public boolean saveOrUpdateApiKey(Long userId, Long supportId, String apiKey) {
+        LambdaQueryWrapper<BindModelPlatform> queryWrapper = new LambdaQueryWrapper<>();
+        queryWrapper.eq(BindModelPlatform::getUserId, userId)
+                .eq(BindModelPlatform::getSupportId, supportId);
+        BindModelPlatform bindEntity = getOne(queryWrapper);
+        if (bindEntity == null) {
+            bindEntity = new BindModelPlatform();
+            bindEntity.setUserId(userId);
+            bindEntity.setSupportId(supportId);
+            bindEntity.setStatus(StatusEnum.DISABLE.getCode());
+            bindEntity.setCreateBy(userId);
+        }
+
+        bindEntity.setApiKey(apiKey);
+
+        return saveOrUpdate(bindEntity);
     }
 }
 
