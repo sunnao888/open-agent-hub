@@ -182,7 +182,9 @@ public class PlatformServiceImpl implements PlatformService {
     public List<String> getAddedModelList(Long supportId) {
         long userId = StpUtil.getLoginIdAsLong();
         BindPlatform bindEntity = bindModelPlatformService.getEntityByUserIdAndSupportId(userId, supportId);
-        Optional.ofNullable(bindEntity).orElseThrow(() -> new BusinessException(ResultCode.REQUEST_REQUIRED_PARAMETER_IS_EMPTY));
+        if (BeanUtil.isEmpty(bindEntity)) {
+            return CollUtil.newArrayList();
+        }
         Long bindId = bindEntity.getId();
         List<BindModel> bindModelList = bindModelListService.lambdaQuery().eq(BindModel::getBindId, bindId).orderBy(true, false, BindModel::getCreateTime).list();
         if (CollUtil.isEmpty(bindModelList)) {
