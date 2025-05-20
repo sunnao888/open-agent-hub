@@ -1,0 +1,39 @@
+package com.sunnao.ai.modules.platform.service;
+
+import com.baomidou.mybatisplus.extension.service.IService;
+import com.sunnao.ai.modules.platform.model.entity.BindPlatform;
+
+import java.util.List;
+
+public interface BindPlatformService extends IService<BindPlatform> {
+
+    /**
+     * 获取用户绑定的模型平台列表
+     *
+     * @param loginId 登录用户ID
+     * @return 模型平台列表
+     */
+    List<BindPlatform> getEntityListByUserId(Long loginId);
+
+    /**
+     * 获取用户启用中的模型平台ID
+     *
+     * @param loginId 登录用户ID
+     * @return 模型平台ID列表
+     */
+    List<Long> getActiveSupportIdListByUserId(Long loginId);
+
+    /**
+     * Retrieves a user's binding information for a specific support platform.
+     *
+     * @param loginId the ID of the logged-in user
+     * @param id      the ID of the support platform
+     * @return the binding information between the user and the specified platform wrapped in a {@link BindPlatform} object
+     */
+    BindPlatform getEntityByUserIdAndSupportId(long loginId, Long id);
+
+    /**
+     * 保存或修改apiKey
+     */
+    boolean saveOrUpdateApiKey(Long userId, Long supportId, String apiKey);
+}
