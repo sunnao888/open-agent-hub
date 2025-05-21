@@ -196,6 +196,7 @@ public enum ResultCode implements IResultCode, Serializable {
     BASE_URL_NOT_MATCHED("A1100", "URL格式不匹配,请检查url是否正确"),
     MODEL_LIST_EMPTY("A1101", "模型列表为空"),
     SUPPORT_PLATFORM_NOT_EXIST("A1102", "不支持的模型平台"),
+    MODEL_PLATFORM_NOT_CONFIGURED("A1103", "请先配置模型平台"),
 
     /**
      * 一级宏观错误码

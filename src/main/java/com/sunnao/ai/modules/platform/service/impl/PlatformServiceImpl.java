@@ -213,7 +213,7 @@ public class PlatformServiceImpl implements PlatformService {
     public boolean updateBindStatus(Long supportId) {
         long loginId = StpUtil.getLoginIdAsLong();
         BindPlatform bindEntity = bindModelPlatformService.getEntityByUserIdAndSupportId(loginId, supportId);
-        Optional.ofNullable(bindEntity).orElseThrow(() -> new BusinessException(ResultCode.REQUEST_REQUIRED_PARAMETER_IS_EMPTY));
+        Optional.ofNullable(bindEntity).orElseThrow(() -> new BusinessException(ResultCode.MODEL_PLATFORM_NOT_CONFIGURED));
         // 状态取反
         Integer status = bindEntity.getStatus().equals(StatusEnum.ENABLE.getCode()) ? StatusEnum.DISABLE.getCode() : StatusEnum.ENABLE.getCode();
         bindEntity.setStatus(status);
