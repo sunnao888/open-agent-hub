@@ -5,6 +5,7 @@ import com.sunnao.ai.common.result.Result;
 import com.sunnao.ai.modules.platform.model.dto.BindPlatformDTO;
 import com.sunnao.ai.modules.platform.model.dto.ModelAddDTO;
 import com.sunnao.ai.modules.platform.model.dto.ModelListDTO;
+import com.sunnao.ai.modules.platform.model.entity.BindModel;
 import com.sunnao.ai.modules.platform.model.vo.PlatformVO;
 import com.sunnao.ai.modules.platform.service.PlatformService;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -96,6 +97,15 @@ public class PlatformController {
     @PutMapping("/bind/{supportId}")
     public Result<Boolean> updateBindStatus(@PathVariable Long supportId) {
         return Result.judge(PlatformService.updateBindStatus(supportId));
+    }
+
+    /**
+     * 获取登录用户绑定的模型列表
+     */
+    @SaCheckLogin
+    @GetMapping("/model/bind/list")
+    public Result<List<BindModel>> getBindModels() {
+        return Result.success(PlatformService.getBindModels());
     }
 
 }

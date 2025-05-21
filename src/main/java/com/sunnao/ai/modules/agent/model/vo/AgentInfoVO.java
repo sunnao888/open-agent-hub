@@ -36,7 +36,7 @@ public class AgentInfoVO {
     /**
      * 提示词
      */
-    private String prompt;
+    private String systemPrompt;
 
     /**
      * 是否开启联网搜索(0 否 1是)

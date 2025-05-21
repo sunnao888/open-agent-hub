@@ -98,9 +98,7 @@ public class PlatformServiceImpl implements PlatformService {
             throw new BusinessException(ResultCode.MODEL_LIST_EMPTY);
         }
 
-        List<String> modelNameList = modelList.stream().map(OpenaiModel::getId).toList();
-
-        return modelNameList;
+        return modelList.stream().map(OpenaiModel::getId).toList();
 
     }
 
@@ -160,7 +158,7 @@ public class PlatformServiceImpl implements PlatformService {
     public boolean addModels(ModelAddDTO dto) {
         Long supportId = Optional.ofNullable(dto.getSupportId()).orElseThrow(() -> new BusinessException(ResultCode.REQUEST_REQUIRED_PARAMETER_IS_EMPTY));
         List<String> models = Optional.ofNullable(dto.getModels()).orElseThrow(() -> new BusinessException(ResultCode.REQUEST_REQUIRED_PARAMETER_IS_EMPTY));
-
+        SupportPlatform support = supportModelPlatformService.getById(supportId);
         BindPlatform bindEntity = bindModelPlatformService.getEntityByUserIdAndSupportId(StpUtil.getLoginIdAsLong(), supportId);
         Optional.ofNullable(bindEntity).orElseThrow(() -> new BusinessException(ResultCode.REQUEST_REQUIRED_PARAMETER_IS_EMPTY));
 
@@ -171,7 +169,7 @@ public class PlatformServiceImpl implements PlatformService {
         models.forEach(model -> {
             BindModel bindModel = new BindModel();
             bindModel.setBindId(bindId);
-            bindModel.setName(model);
+            bindModel.setName(model + "|" + support.getName());
             bindModel.setCreateBy(StpUtil.getLoginIdAsLong());
             entities.add(bindModel);
         });
@@ -219,5 +217,16 @@ public class PlatformServiceImpl implements PlatformService {
         bindEntity.setStatus(status);
         bindEntity.setUpdateBy(loginId);
         return bindModelPlatformService.updateById(bindEntity);
+    }
+
+    @Override
+    public List<BindModel> getBindModels() {
+        long loginId = StpUtil.getLoginIdAsLong();
+        List<BindPlatform> bindPlatforms = bindModelPlatformService.lambdaQuery().eq(BindPlatform::getUserId, loginId).list();
+        if (CollUtil.isEmpty(bindPlatforms)) {
+            return CollUtil.newArrayList();
+        }
+        List<Long> bindIds = bindPlatforms.stream().map(BindPlatform::getId).toList();
+        return bindModelListService.lambdaQuery().in(BindModel::getBindId, bindIds).orderBy(true, false, BindModel::getCreateTime).list();
     }
 }

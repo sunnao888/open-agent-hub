@@ -67,6 +67,7 @@ public class AgentInfoServiceImpl extends ServiceImpl<AgentInfoMapper, AgentInfo
             // 新增时设置uuid
             String uuid = IdUtil.simpleUUID();
             entity.setUuid(uuid);
+            entity.setUserId(StpUtil.getLoginIdAsLong());
             entity.setCreateBy(StpUtil.getLoginIdAsLong());
         } else {
             entity.setUpdateBy(StpUtil.getLoginIdAsLong());
@@ -81,14 +82,15 @@ public class AgentInfoServiceImpl extends ServiceImpl<AgentInfoMapper, AgentInfo
         List<AgentInfo> entityList = this.lambdaQuery().eq(AgentInfo::getUserId, loginId).list();
 
         List<AgentInfoVO> vos = agentInfoConverter.toVOS(entityList);
-
-        // 补充模型名称
-        Set<Long> modelIds = vos.stream().map(AgentInfoVO::getModelId).distinct().collect(Collectors.toSet());
-        List<BindModel> bindModels = bindModelListService.listByIds(modelIds);
-        if (CollUtil.isNotEmpty(bindModels)) {
-            Map<Long, String> bindModelMap = bindModels.stream().collect(Collectors.toMap(BindModel::getId, BindModel::getName, (k1, k2) -> k2));
-            for (AgentInfoVO vo : vos) {
-                vo.setModelName(bindModelMap.get(vo.getModelId()));
+        if (CollUtil.isNotEmpty(vos)) {
+            // 补充模型名称
+            Set<Long> modelIds = vos.stream().map(AgentInfoVO::getModelId).collect(Collectors.toSet());
+            List<BindModel> bindModels = bindModelListService.listByIds(modelIds);
+            if (CollUtil.isNotEmpty(bindModels)) {
+                Map<Long, String> bindModelMap = bindModels.stream().collect(Collectors.toMap(BindModel::getId, BindModel::getName, (k1, k2) -> k2));
+                for (AgentInfoVO vo : vos) {
+                    vo.setModelName(bindModelMap.get(vo.getModelId()));
+                }
             }
         }
         return vos;

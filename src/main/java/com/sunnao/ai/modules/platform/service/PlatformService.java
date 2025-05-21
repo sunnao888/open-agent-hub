@@ -3,6 +3,7 @@ package com.sunnao.ai.modules.platform.service;
 import com.sunnao.ai.modules.platform.model.dto.BindPlatformDTO;
 import com.sunnao.ai.modules.platform.model.dto.ModelAddDTO;
 import com.sunnao.ai.modules.platform.model.dto.ModelListDTO;
+import com.sunnao.ai.modules.platform.model.entity.BindModel;
 import com.sunnao.ai.modules.platform.model.vo.PlatformVO;
 
 import java.util.List;
@@ -72,5 +73,12 @@ public interface PlatformService {
      * @return true if the binding status was successfully updated, false otherwise
      */
     boolean updateBindStatus(Long supportId);
+
+    /**
+     * 获取用户绑定的平台模型列表
+     *
+     * @return 模型列表
+     */
+    List<BindModel> getBindModels();
 
 }
