@@ -24,7 +24,7 @@
         <druid.version>1.2.24</druid.version>
         <org.mapstruct.version>1.6.3</org.mapstruct.version>
         <hutool.version>5.8.26</hutool.version>
-        <knife4j.version>4.5.0</knife4j.version>
+        <knife4j.version>4.6.0</knife4j.version>
         <sa-token.version>1.42.0</sa-token.version>
         <fastjson.version>2.0.57</fastjson.version>
     </properties>
@@ -136,9 +136,9 @@
         </dependency>
 
         <dependency>
-            <groupId>com.github.xiaoymin</groupId>
+            <groupId>com.github.xingfudeshi</groupId>
             <artifactId>knife4j-openapi3-jakarta-spring-boot-starter</artifactId>
-            <version>${knife4j.version}</version>
+            <version>4.6.0</version>
         </dependency>
 
         <!-- Sa-Token 权限认证，在线文档：https://sa-token.cc -->

@@ -11,6 +11,7 @@ import com.sunnao.ai.common.enums.StatusEnum;
 import com.sunnao.ai.common.exception.BusinessException;
 import com.sunnao.ai.common.result.ResultCode;
 import com.sunnao.ai.modules.platform.converter.PlatformConverter;
+import com.sunnao.ai.modules.platform.model.bo.PlatformBO;
 import com.sunnao.ai.modules.platform.model.dto.BindPlatformDTO;
 import com.sunnao.ai.modules.platform.model.dto.ModelAddDTO;
 import com.sunnao.ai.modules.platform.model.dto.ModelListDTO;
@@ -78,7 +79,7 @@ public class PlatformServiceImpl implements PlatformService {
         bindModelPlatformService.saveOrUpdateApiKey(StpUtil.getLoginIdAsLong(), supportId, modelListDTO.getApiKey());
         // 判断url是否符合openai规范
         String regex = "^(?:https?://)?[\\w.-]+(?::\\d+)?(?:/[\\w.-]*)*/v1/?$";
-        boolean matches = baseUrl.matches(regex);
+        boolean matches = (baseUrl + "/v1").matches(regex);
         if (!matches) {
             throw new BusinessException(ResultCode.BASE_URL_NOT_MATCHED);
         }
@@ -228,5 +229,16 @@ public class PlatformServiceImpl implements PlatformService {
         }
         List<Long> bindIds = bindPlatforms.stream().map(BindPlatform::getId).toList();
         return bindModelListService.lambdaQuery().in(BindModel::getBindId, bindIds).orderBy(true, false, BindModel::getCreateTime).list();
+    }
+
+    @Override
+    public PlatformBO getPlatformInfoByBindModel(Long modelId) {
+        BindModel bindModel = bindModelListService.getById(modelId);
+        Optional.ofNullable(bindModel).orElseThrow(() -> new BusinessException(ResultCode.REQUEST_REQUIRED_PARAMETER_IS_EMPTY));
+        Long bindId = bindModel.getBindId();
+        BindPlatform bindPlatform = bindModelPlatformService.getById(bindId);
+        Optional.ofNullable(bindPlatform).orElseThrow(() -> new BusinessException(ResultCode.REQUEST_REQUIRED_PARAMETER_IS_EMPTY));
+        SupportPlatform supportPlatform = supportModelPlatformService.getById(bindPlatform.getSupportId());
+        return modelPlatformConverter.toPlatformBO(supportPlatform, bindPlatform, bindModel);
     }
 }

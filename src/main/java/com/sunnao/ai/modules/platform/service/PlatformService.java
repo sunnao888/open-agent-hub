@@ -1,5 +1,6 @@
 package com.sunnao.ai.modules.platform.service;
 
+import com.sunnao.ai.modules.platform.model.bo.PlatformBO;
 import com.sunnao.ai.modules.platform.model.dto.BindPlatformDTO;
 import com.sunnao.ai.modules.platform.model.dto.ModelAddDTO;
 import com.sunnao.ai.modules.platform.model.dto.ModelListDTO;
@@ -80,5 +81,10 @@ public interface PlatformService {
      * @return 模型列表
      */
     List<BindModel> getBindModels();
+
+    /**
+     * 根据用户绑定的模型查询模型平台全部信息
+     */
+    PlatformBO getPlatformInfoByBindModel(Long modelId);
 
 }

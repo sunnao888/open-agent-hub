@@ -1,5 +1,7 @@
 package com.sunnao.ai.modules.platform.converter;
 
+import com.sunnao.ai.modules.platform.model.bo.PlatformBO;
+import com.sunnao.ai.modules.platform.model.entity.BindModel;
 import com.sunnao.ai.modules.platform.model.entity.BindPlatform;
 import com.sunnao.ai.modules.platform.model.entity.SupportPlatform;
 import com.sunnao.ai.modules.platform.model.vo.PlatformVO;
@@ -51,4 +53,15 @@ public interface PlatformConverter {
     })
     PlatformVO toModelPlatformVO(BindPlatform bind, SupportPlatform support);
 
+
+    @Mappings({
+            @Mapping(source = "support.id", target = "supportId"),
+            @Mapping(source = "support.status", target = "supportStatus"),
+            @Mapping(source = "support.name", target = "name"),
+            @Mapping(source = "bind.id", target = "bindId"),
+            @Mapping(source = "bind.status", target = "bindStatus"),
+            @Mapping(source = "model.id", target = "modelId"),
+            @Mapping(source = "model.name", target = "modelName"),
+    })
+    PlatformBO toPlatformBO(SupportPlatform support, BindPlatform bind, BindModel model);
 }

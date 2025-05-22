@@ -1,5 +1,6 @@
 package com.sunnao.ai.modules.agent.chat.model;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 
 /**
@@ -9,7 +10,8 @@ import lombok.Data;
  * @since 2025-05-20
  */
 @Data
-public class AgentMessage {
+@AllArgsConstructor
+public class AgentPrompt {
 
     /**
      * 模型名称
@@ -35,4 +37,5 @@ public class AgentMessage {
      * 上下文轮数
      */
     private Integer contextNum;
+
 }
