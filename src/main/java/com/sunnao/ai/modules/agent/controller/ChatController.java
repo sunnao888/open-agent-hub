@@ -2,12 +2,14 @@ package com.sunnao.ai.modules.agent.controller;
 
 import com.sunnao.ai.common.result.Result;
 import com.sunnao.ai.modules.agent.model.dto.ChatDTO;
+import com.sunnao.ai.modules.agent.model.dto.TestChatDTO;
 import com.sunnao.ai.modules.agent.service.ChatService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import reactor.core.publisher.Flux;
 
 @RestController
 @RequestMapping("/chat")
@@ -16,9 +18,15 @@ public class ChatController {
 
     private final ChatService chatService;
 
-    @PostMapping("/chat")
+    @PostMapping
     public Result<String> chat(@RequestBody ChatDTO chatDTO) {
         String response = chatService.chat(chatDTO);
+        return Result.success(response);
+    }
+
+    @PostMapping("/test")
+    public Result<Flux<String>> test(@RequestBody TestChatDTO testChatDTO) {
+        Flux<String> response = chatService.test(testChatDTO);
         return Result.success(response);
     }
 }

@@ -87,4 +87,9 @@ public interface PlatformService {
      */
     PlatformBO getPlatformInfoByBindModel(Long modelId);
 
+    /**
+     * 根据登录用户id和模型名称获取模型平台信息
+     */
+    PlatformBO getPlatformInfoByModelName(Long userId, String modelName);
+
 }

@@ -6,6 +6,7 @@ import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.ai.openai.OpenAiChatModel;
 import org.springframework.ai.openai.OpenAiChatOptions;
 import org.springframework.ai.openai.api.OpenAiApi;
+import reactor.core.publisher.Flux;
 
 /**
  * 智能体入口
@@ -38,5 +39,24 @@ public class Agent {
                 .call()
                 .content();
 
+    }
+
+    public static Flux<String> test(AgentApiKey agentApiKey, AgentPrompt agentPrompt) {
+        OpenAiApi baseApi = OpenAiApi.builder().baseUrl(agentApiKey.getBaseUrl()).apiKey(agentApiKey.getApiKey()).build();
+
+        OpenAiChatModel baseModel = OpenAiChatModel.builder()
+                .openAiApi(baseApi)
+                .defaultOptions(OpenAiChatOptions.builder().model(agentPrompt.getModel()).build())
+                .build();
+
+        ChatClient chatClient = ChatClient.builder(baseModel)
+                .defaultSystem(agentPrompt.getSystemPrompt())
+                .build();
+
+        return chatClient
+                .prompt(agentPrompt.getUserPrompt())
+                .options(OpenAiChatOptions.builder().temperature(agentPrompt.getTemperature()).build())
+                .stream()
+                .content();
     }
 }

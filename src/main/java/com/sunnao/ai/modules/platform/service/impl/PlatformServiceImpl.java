@@ -241,4 +241,27 @@ public class PlatformServiceImpl implements PlatformService {
         SupportPlatform supportPlatform = supportModelPlatformService.getById(bindPlatform.getSupportId());
         return modelPlatformConverter.toPlatformBO(supportPlatform, bindPlatform, bindModel);
     }
+
+    @Override
+    public PlatformBO getPlatformInfoByModelName(Long userId, String modelName) {
+
+        // 1. 获取用户绑定的平台
+        List<BindPlatform> binds = bindModelPlatformService.lambdaQuery().eq(BindPlatform::getUserId, userId).list();
+        if (CollUtil.isEmpty(binds)) {
+            return new PlatformBO();
+        }
+
+        List<Long> bindIds = binds.stream().map(BindPlatform::getId).toList();
+        // 2. 获取用户绑定的模型
+        BindModel bindModel = bindModelListService.lambdaQuery()
+                .eq(BindModel::getName, modelName)
+                .in(BindModel::getBindId, bindIds)
+                .one();
+        Optional.ofNullable(bindModel).orElseThrow(() -> new BusinessException(ResultCode.REQUEST_REQUIRED_PARAMETER_IS_EMPTY));
+        Long bindId = bindModel.getBindId();
+        BindPlatform bindPlatform = bindModelPlatformService.getById(bindId);
+        Optional.ofNullable(bindPlatform).orElseThrow(() -> new BusinessException(ResultCode.REQUEST_REQUIRED_PARAMETER_IS_EMPTY));
+        SupportPlatform supportPlatform = supportModelPlatformService.getById(bindPlatform.getSupportId());
+        return modelPlatformConverter.toPlatformBO(supportPlatform, bindPlatform, bindModel);
+    }
 }
