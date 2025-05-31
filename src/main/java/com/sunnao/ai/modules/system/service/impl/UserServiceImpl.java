@@ -1,6 +1,7 @@
 package com.sunnao.ai.modules.system.service.impl;
 
 import cn.dev33.satoken.stp.StpUtil;
+import cn.hutool.crypto.digest.DigestUtil;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.sunnao.ai.common.exception.BusinessException;
 import com.sunnao.ai.common.result.ResultCode;
@@ -40,6 +41,8 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
 
     @Override
     public Boolean register(String username, String password) {
+        // 加密
+        password = DigestUtil.bcrypt(password);
         return save(new User(username, password));
     }
 
@@ -47,7 +50,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     public boolean checkPassword(String username, String password) {
         User entity = getEntityByUsername(username);
         Optional.ofNullable(entity).orElseThrow(() -> new BusinessException(ResultCode.USER_NOT_EXIST));
-        return password.equals(entity.getPassword());
+        return DigestUtil.bcrypt(password).equals(entity.getPassword());
     }
 
     @Override

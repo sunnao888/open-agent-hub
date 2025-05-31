@@ -1,6 +1,7 @@
 package com.sunnao.ai.shared.auth.service.impl;
 
 import cn.dev33.satoken.stp.StpUtil;
+import cn.hutool.crypto.digest.DigestUtil;
 import com.sunnao.ai.common.exception.BusinessException;
 import com.sunnao.ai.common.result.ResultCode;
 import com.sunnao.ai.modules.system.model.entity.User;
@@ -59,7 +60,7 @@ public class AuthServiceImpl implements AuthService {
                 .orElseThrow(() -> new BusinessException(ResultCode.PASSWORD_VERIFICATION_FAILED));
 
         // 1. 校验密码
-        if (!password.equals(confirmPassword)) {
+        if (!DigestUtil.bcrypt(password).equals(confirmPassword)) {
             throw new BusinessException(ResultCode.PASSWORD_VERIFICATION_FAILED);
         }
 
