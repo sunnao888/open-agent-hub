@@ -10,6 +10,7 @@ import org.springframework.ai.chat.model.ChatModel;
 import org.springframework.ai.tool.ToolCallback;
 import org.springframework.ai.tool.ToolCallbackProvider;
 import org.springframework.stereotype.Component;
+import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 import reactor.core.publisher.Flux;
 
 import static org.springframework.ai.chat.memory.ChatMemory.CONVERSATION_ID;
@@ -80,10 +81,39 @@ public class LoveApp {
                         .withTemperature(DEFAULT_TEMPERATURE)
                         .withEnableThinking(false)
                         .build())
-                .tools(allTools)
+                .toolCallbacks(allTools)
                 .toolCallbacks(toolCallbackProvider)
                 .stream()
                 .content();
     }
 
+    public SseEmitter sse(String conversationId, String userPrompt) {
+        SseEmitter emitter = new SseEmitter();
+        loveClient.prompt(userPrompt)
+                .advisors(
+                        a -> a.param(CONVERSATION_ID, conversationId)
+                )
+                .options(DashScopeChatOptions
+                        .builder()
+                        .withModel(DEFAULT_MODEL)
+                        .withTemperature(DEFAULT_TEMPERATURE)
+                        .withEnableThinking(false)
+                        .build())
+                .toolCallbacks(allTools)
+                .toolCallbacks(toolCallbackProvider)
+                .stream()
+                .content()
+                .doOnNext(content -> {
+                    try {
+                        emitter.send(content);
+                    } catch (Exception e) {
+                        emitter.completeWithError(e);
+                    }
+                })
+                .doOnComplete(emitter::complete)
+                .doOnError(emitter::completeWithError)
+                .subscribe();
+
+        return emitter;
+    }
 }

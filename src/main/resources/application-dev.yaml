@@ -31,9 +31,6 @@ spring:
       api-key: ${DASH_SCOPE_API_KEY}
     alibaba:
         toolcalling:
-          weather:
-            enabled: true
-            api-key: ${WEATHER_API_KEY}
           baidu:
             search:
               max-results: 5
