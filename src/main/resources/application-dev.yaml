@@ -26,6 +26,38 @@ spring:
           max-idle: 8
           # 连接池中的最小空闲连接 默认0
           min-idle: 0
+  ai:
+    dashscope:
+      api-key: ${DASH_SCOPE_API_KEY}
+    alibaba:
+        toolcalling:
+          weather:
+            enabled: true
+            api-key: ${WEATHER_API_KEY}
+          baidu:
+            search:
+              max-results: 5
+              enabled: true
+    mcp:
+      client:
+        enabled: true
+        stdio:
+          servers-configuration: classpath:mcp-servers.json
+        name: open-agent-hub-mcp-client
+        request-timeout: 30s
+    memory:
+      mysql:
+        enabled: true
+    chat:
+      memory:
+        repository:
+          jdbc:
+            mysql:
+              enabled: true
+              jdbc-url: ${spring.datasource.url}
+              username: ${spring.datasource.username}
+              password: ${spring.datasource.password}
+              driver-class-name: ${spring.datasource.driver-class-name}
 
 ############## Sa-Token 配置 (文档: https://sa-token.cc) ##############
 sa-token:
@@ -70,20 +102,9 @@ springdoc:
     tags-sorter: alpha
   api-docs:
     path: /v3/api-docs
-  group-configs:
-    - group: '系统管理'
-      paths-to-match: "/**"
-      packages-to-scan:
-        - com.sunnao.ai.modules.system.controller
-        - com.sunnao.ai.modules.agent.controller
-    - group: '智能体'
-      paths-to-match: "/**"
-      packages-to-scan:
-        - com.sunnao.ai.modules.agent.controller
   default-flat-param-object: true
 
 # knife4j 接口文档配置
-# fixme!!! knife4j和 spring boot 3.4.5有兼容性问题,项目中使用了ControllerAdvice注解会导致接口文档报错. 详见https://github.com/xiaoymin/knife4j/issues/884
 knife4j:
   # 是否开启 Knife4j 增强功能
   enable: true  # 设置为 true 表示开启增强功能
