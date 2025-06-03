@@ -48,4 +48,9 @@ public class ChatService {
             }
         }
     }
+
+    public String manus4JTest(String message) {
+
+        return openManus4J.run(message);
+    }
 }

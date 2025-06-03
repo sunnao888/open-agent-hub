@@ -1,6 +1,7 @@
 package com.sunnao.ai.modules.ai.agent;
 
 import cn.hutool.core.collection.CollUtil;
+import cn.hutool.core.util.StrUtil;
 import com.alibaba.cloud.ai.dashscope.chat.DashScopeChatOptions;
 import com.sunnao.ai.modules.ai.agent.model.AgentState;
 import lombok.Data;
@@ -28,6 +29,10 @@ import java.util.stream.Collectors;
 @Slf4j
 public class ToolCallAgent extends ReActAgent {
 
+    private static final String DEFAULT_MODEL = "qwen3-235b-a22b";
+
+    private static final Double DEFAULT_TEMPERATURE = 0.7;
+
     // 可用的工具
     private final ToolCallback[] availableTools;
 
@@ -46,6 +51,9 @@ public class ToolCallAgent extends ReActAgent {
         this.toolCallingManager = ToolCallingManager.builder().build();
         // 禁用 Spring AI 内置的工具调用机制，自己维护选项和消息上下文
         this.chatOptions = DashScopeChatOptions.builder()
+                .withModel(DEFAULT_MODEL)
+                .withTemperature(DEFAULT_TEMPERATURE)
+                .withEnableThinking(false)
                 .withInternalToolExecutionEnabled(false)
                 .build();
     }
@@ -57,7 +65,7 @@ public class ToolCallAgent extends ReActAgent {
      */
     @Override
     public boolean think() {
-        if (getNextStepPrompt() != null && !getNextStepPrompt().isEmpty()) {
+        if (StrUtil.isBlankIfStr(getNextStepPrompt())) {
             UserMessage userMessage = new UserMessage(getNextStepPrompt());
             getMessages().add(userMessage);
         }
@@ -65,7 +73,8 @@ public class ToolCallAgent extends ReActAgent {
         Prompt prompt = new Prompt(messageList, chatOptions);
         try {
             // 获取带工具选项的响应
-            ChatResponse chatResponse = getChatClient().prompt(prompt)
+            ChatResponse chatResponse = getChatClient()
+                    .prompt(prompt)
                     .system(getSystemPrompt())
                     .toolCallbacks(availableTools)
                     .call()
@@ -78,13 +87,6 @@ public class ToolCallAgent extends ReActAgent {
             List<AssistantMessage.ToolCall> toolCallList = assistantMessage.getToolCalls();
             log.info("{}的思考: {}", getName(), result);
             log.info("{}选择了 {} 个工具来使用", getName(), toolCallList.size());
-            String toolCallInfo = toolCallList.stream()
-                    .map(toolCall -> String.format("工具名称：%s，参数：%s",
-                            toolCall.name(),
-                            toolCall.arguments())
-                    )
-                    .collect(Collectors.joining("\n"));
-            log.info(toolCallInfo);
             if (toolCallList.isEmpty()) {
                 // 只有不调用工具时，才记录助手消息
                 getMessages().add(assistantMessage);
